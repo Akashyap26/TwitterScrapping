@@ -21,13 +21,14 @@ end_date = st.sidebar.date_input("End Date")
 
 
 #twitter Scrapping Code
-userdata = []
-for i,tweet in enumerate(sntwitter.TwitterSearchScraper(keyword + " until:" + str(end_date) + " since:" + str(start_date)).get_items()):
-    if i>Tweet_count :
-        break  
-    userdata.append([tweet.date,tweet.user.id,tweet.url,tweet.content,tweet.renderedContent,tweet.user.username,tweet.replyCount,tweet.retweetCount,tweet.lang,tweet.source,tweet.likeCount])
-twitter_Dataset = pd.DataFrame(userdata, columns=['Date','ID','URL','Tweet','Content','User','Reply Count','Retweet Count','Language', 'Source','Like Count'])
-st.dataframe(twitter_Dataset)
+if st.button("Click to Process"):
+    userdata = []
+    for i,tweet in enumerate(sntwitter.TwitterSearchScraper(keyword + " until:" + str(end_date) + " since:" + str(start_date)).get_items()):
+        if i>Tweet_count :
+            break  
+        userdata.append([tweet.date,tweet.user.id,tweet.url,tweet.content,tweet.renderedContent,tweet.user.username,tweet.replyCount,tweet.retweetCount,tweet.lang,tweet.source,tweet.likeCount])
+    twitter_Dataset = pd.DataFrame(userdata, columns=['Date','ID','URL','Tweet','Content','User','Reply Count','Retweet Count','Language', 'Source','Like Count'])
+    st.dataframe(twitter_Dataset)
 
 
 
